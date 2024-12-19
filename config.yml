@@ -1,0 +1,65 @@
+site_url: https://cms.ihavethatonvinyl.com
+
+backend:
+  name: github
+  repo: ihavethatonvinyl/blog
+  branch: main
+  base_url: https://decap-proxy.ihtov-cms-auth.workers.dev
+  cms_label_prefix: cms/
+  commit_messages:
+    create: Create {{collection}} "{{slug}}"
+    update: Update {{collection}} "{{slug}}"
+    delete: Delete {{collection}} "{{slug}}"
+    uploadMedia: Upload "{{path}}"
+    deleteMedia: Delete "{{path}}"
+
+media_folder: static/images/upload
+public_folder: /images/upload
+
+collections:
+  - name: "conversations" 
+    label: "Interviews"
+    label_singular: "Interview"
+    folder: "content/conversations"
+    create: true
+    slug: '{{slug}}'
+    fields: # The fields for each document, usually in front matter
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Date", name: "date", widget: "datetime"}
+      - {label: "Draft", name: "draft", widget: "boolean", default: true}
+      - {label: "Featured Image", name: "featuredImage", widget: "image", required: false}
+      - {label: "Featured Image alt text", name: "featuredImageAlt", widget: "string", required: false}
+      - {label: "Featured Image caption", name: "featuredImageCap", widget: "string", required: false}
+      - {label: "Body", name: "body", widget: "markdown"}
+  - name: "liner-notes" 
+    label: "Liner Notes"
+    folder: "content/liner-notes"
+    create: true
+    slug: '{{slug}}'
+    fields: # The fields for each document, usually in front matter
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Date", name: "date", widget: "datetime"}
+      - {label: "Draft", name: "draft", widget: "boolean", default: true}
+      - {label: "Body", name: "body", widget: "markdown"}
+  - name: "q-and-a" 
+    label: "Q & A"
+    folder: "content/q-and-a"
+    create: true
+    slug: '{{slug}}'
+    fields: # The fields for each document, usually in front matter
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Date", name: "date", widget: "datetime"}
+      - {label: "Draft", name: "draft", widget: "boolean", default: true}
+      - {label: "Body", name: "body", widget: "markdown"}
+  - name: "essays" 
+    label: "Essays"
+    label_singular: "Essay"
+    folder: "content/essays"
+    create: true
+    slug: '{{slug}}'
+    fields: # The fields for each document, usually in front matter
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Date", name: "date", widget: "datetime"}
+      - {label: "Draft", name: "draft", widget: "boolean", default: true}
+      - {label: "Author", name: "author", widget: "string"}
+      - {label: "Body", name: "body", widget: "markdown"}

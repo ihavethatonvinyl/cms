@@ -1,0 +1,31 @@
+on:
+  push:
+    branch: main
+ 
+jobs:
+  build-site:
+    runs-on: [ihavethatonvinyl-runners]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install Pack CLI
+        uses: buildpacks/github-actions/setup-pack@v5.0.0
+      - name: Log in to registry
+        uses: docker/login-action@v3
+        with:
+          registry: registry.lab.verysmart.house
+          username: "robot$images+gha"
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+      - name: Build Image
+        shell: bash
+        run: |
+          pack build registry.lab.verysmart.house/images/cms --publish --buildpack paketo-buildpacks/nginx --builder paketobuildpacks/builder-jammy-base
+      - name: Build Hugo Site
+        uses: ./actions/build-hugo-image/
+        with:
+          base-url: ${{ steps.build-inputs.outputs.BASE_URL }}
+          include-drafts: "${{ github.event.inputs.include-drafts }}"
+          image-name: registry.
+          registry-hostname: registry.lab.verysmart.house
+          registry-username: "robot$images+gha"
+          registry-password: ${{ secrets.REGISTRY_PASSWORD }}
