@@ -6,7 +6,7 @@ on:
       
 jobs:
   build-site:
-    runs-on: [ihavethatonvinyl-runners]
+    runs-on: [cms-runners]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
