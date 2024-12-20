@@ -1,10 +1,19 @@
 on:
-  push:
-    branch: main
- 
+  workflow_dispatch:
+    inputs:
+      target-environment:
+        type: choice
+        description: Are you posting to staging or the live site?
+        options:
+          - staging
+          - live
+      include-drafts:
+        type: boolean
+        description: "Include Drafts?"
+      
 jobs:
   build-site:
-    runs-on: [cms-runners]
+    runs-on: [ihavethatonvinyl-runners]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -18,5 +27,7 @@ jobs:
           password: ${{ secrets.REGISTRY_PASSWORD }}
       - name: Build Image
         shell: bash
+        working-directory: image
         run: |
           pack build registry.lab.verysmart.house/images/cms --publish --buildpack paketo-buildpacks/nginx --builder paketobuildpacks/builder-jammy-base
+      
