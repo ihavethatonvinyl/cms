@@ -1,15 +1,8 @@
 on:
-  workflow_dispatch:
-    inputs:
-      target-environment:
-        type: choice
-        description: Are you posting to staging or the live site?
-        options:
-          - staging
-          - live
-      include-drafts:
-        type: boolean
-        description: "Include Drafts?"
+  push:
+    branches:
+      - main
+  workflow_dispatch: {}
       
 jobs:
   build-site:
